@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Src">
+      <UniqueIdentifier>{a8fc5f58-f0fe-46c7-9c18-771589342367}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Common.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Define.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Stdafx.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
