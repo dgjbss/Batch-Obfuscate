@@ -22,8 +22,13 @@ int main(int argc, char* argv[])
 
     std::fstream _fBatch;  // Open file
 
-    Encryption(&_fBatch, argv[1]);
-    // Decryption(&_fBatch, argv[1]);
+    if( !argv[2] )
+    {
+        Encryption(&_fBatch, argv[1]);
+        return 0;
+    }
+
+    Decryption(&_fBatch, argv[1]);
 
     return 0;
 }
@@ -75,8 +80,6 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
         lpFile->get( _szGetLN );
         _szFData += _szGetLN;
     }
-
-    std::cout << _szFData << std::endl;
 
     if ( _szFData[0] != _iUnicode[0] && _szFData[1] != _iUnicode[1] && _szFData[2] != _iUnicode[2] && _szFData[3] != _iUnicode[3] )
         return;
