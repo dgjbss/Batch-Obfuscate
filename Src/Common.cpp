@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
 
     std::fstream _fBatch;  // Open file
 
-    // Encryption(&_fBatch, argv[1]);
-    Decryption(&_fBatch, argv[1]);
+    Encryption(&_fBatch, argv[1]);
+    // Decryption(&_fBatch, argv[1]);
 
     return 0;
 }
@@ -32,7 +32,7 @@ void Encryption(std::fstream * lpFile, std::string szNFile)
 {
     const int _iUnicode[] = { 0xFE, 0xFF, 0x0D, 0x0A };   // Unicode + '\r\n'
 
-    std::string _szGetLN;  // Get file line text
+    char _szGetLN;         // Get file line text
     std::string _szFData;  // append _szGetLN data.
 
     // First open get file data.
@@ -41,8 +41,8 @@ void Encryption(std::fstream * lpFile, std::string szNFile)
 
     while ( lpFile->good( ) && !lpFile->eof( ) )
     {
-        std::getline( *lpFile, _szGetLN );
-        _szFData.append(_szGetLN);
+        lpFile->get( _szGetLN );
+        _szFData += _szGetLN;
     }
 
     // Agent open on the clear file.
@@ -62,7 +62,7 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
 {
     const int _iUnicode[] = { 0xFE, 0xFF, 0x0D, 0x0A };   // Unicode + '\r\n'
 
-    std::string _szGetLN;  // Get file line text
+    char _szGetLN;         // Get file line text
     std::string _szFData;  // append _szGetLN data.
 
     // First open get file data.
@@ -71,8 +71,8 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
 
     while ( lpFile->good( ) && !lpFile->eof( ) )
     {
-        std::getline( *lpFile, _szGetLN );
-        _szFData.append(_szGetLN);
+        lpFile->get( _szGetLN );
+        _szFData += _szGetLN;
     }
 
     if ( _szFData[0] != _iUnicode[0] && _szFData[1] != _iUnicode[1] && _szFData[2] != _iUnicode[2] && _szFData[3] != _iUnicode[3] )
