@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
 
     std::fstream _fBatch;  // Open file
 
-    // Encryption(&_fBatch, argv[1]);
-    Decryption(&_fBatch, argv[1]);
+    Encryption(&_fBatch, argv[1]);
+    // Decryption(&_fBatch, argv[1]);
 
     return 0;
 }
@@ -53,6 +53,7 @@ void Encryption(std::fstream * lpFile, std::string szNFile)
     for(int iCode : _iUnicode)
         lpFile->put( iCode );
 
+    _szFData = _szFData.substr(0, _szFData.size() - 1);    // (ABCDD)->(D) 1 byte 0x00 ?
     *lpFile << _szFData; // Write to file
 
     lpFile->close(); // Save to file
@@ -75,6 +76,8 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
         _szFData += _szGetLN;
     }
 
+    std::cout << _szFData << std::endl;
+
     if ( _szFData[0] != _iUnicode[0] && _szFData[1] != _iUnicode[1] && _szFData[2] != _iUnicode[2] && _szFData[3] != _iUnicode[3] )
         return;
 
@@ -83,8 +86,7 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
     lpFile->open(szNFile, std::ios::in|std::ios::out|std::ios::binary|std::ios::trunc);
 
     // Remove Unicode
-    _szFData = _szFData.substr(4, _szFData.size());
-
+    _szFData = _szFData.substr(4, _szFData.size() - 5);    // (ABCDDD\n)->(DD\n) 6 byte 0x00 0x00 0x00 ?
     *lpFile << _szFData;  // Write to file
 
     lpFile->close();  // Save to file
