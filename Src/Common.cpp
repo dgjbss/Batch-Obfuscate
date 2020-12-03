@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
 
     std::fstream _fBatch;  // Open file
 
-    Encryption(&_fBatch, argv[1]);
-    // Decryption(&_fBatch, argv[1]);
+    // Encryption(&_fBatch, argv[1]);
+    Decryption(&_fBatch, argv[1]);
 
     return 0;
 }
@@ -83,7 +83,7 @@ void Decryption(std::fstream * lpFile, std::string szNFile)
     lpFile->open(szNFile, std::ios::in|std::ios::out|std::ios::binary|std::ios::trunc);
 
     // Remove Unicode
-    _szFData = _szFData.substr(3, _szFData.size());
+    _szFData = _szFData.substr(4, _szFData.size());
 
     *lpFile << _szFData;  // Write to file
 
